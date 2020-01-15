@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameControlScript : MonoBehaviour
 {
+    public AudioSource gameover;
     public GameObject Heart1, Heart2, Heart3, gameOver, Restart;
     public static int health;
     void Start()
@@ -49,6 +50,9 @@ public class GameControlScript : MonoBehaviour
                     Restart.gameObject.SetActive(true);
                 break;
             }
-        
+        if (GameControlScript.health == 0)
+        {
+            gameover.Play();
+        }
     }
 }

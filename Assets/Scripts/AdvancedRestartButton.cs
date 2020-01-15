@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class AdvancedRestartButton : MonoBehaviour
 {
-    [System.Obsolete]
+    
     public void RestartGame()
     {
         

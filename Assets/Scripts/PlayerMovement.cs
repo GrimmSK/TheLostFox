@@ -12,11 +12,14 @@ public class PlayerMovement : MonoBehaviour {
 	float horizontalMove = 0f;
 	bool jump = false;
 	bool crouch = false;
+    public AudioSource hurtSound;
+    public AudioSource jumpSound;
     
-    
+    public AudioSource coinSound;
+    public AudioSource heartSound;
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 
         
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
@@ -30,7 +33,9 @@ public class PlayerMovement : MonoBehaviour {
                 jump = true;
                 animator.SetBool("IsJumping", true);
             }
-		}
+            jumpSound.Play();
+
+        }
 
 		if (Input.GetButtonDown("Crouch"))
 		{
@@ -42,10 +47,7 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			crouch = false;
 		}
-        if(GameControlScript.health== 0)
-        {
-            animator.SetBool("IsDead", true);
-        }
+      
 
 	}
     private void OnTriggerEnter2D(Collider2D colision)
@@ -53,11 +55,13 @@ public class PlayerMovement : MonoBehaviour {
         if (colision.gameObject.CompareTag("Coin"))
         {
             Destroy(colision.gameObject);
+            coinSound.Play();
         }
 
         if (colision.gameObject.CompareTag("heart"))
         {
             Destroy(colision.gameObject);
+            heartSound.Play();
         }
         if (colision.gameObject.CompareTag("lowpoint"))
         {
@@ -81,7 +85,7 @@ public class PlayerMovement : MonoBehaviour {
                 gameObject.transform.position += new Vector3(1, 0, 0);
             }
             animator.SetTrigger("Damage");
-                    
+            hurtSound.Play();      
         }
         
     }
